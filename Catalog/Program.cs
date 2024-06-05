@@ -10,6 +10,6 @@ var app = builder.Build();
 
 
 app.GetGameEndPoints();
-app.MigrateDB();
+await app.MigrateDBAsync();
 
 app.Run();
