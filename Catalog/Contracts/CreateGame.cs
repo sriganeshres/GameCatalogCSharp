@@ -1,0 +1,10 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Catalog.Contracts;
+
+public record class CreateGame(
+    [Required][StringLength(50)] string Name,
+    int GenreID,
+    [Range(1, 100)] decimal Price,
+    DateOnly ReleaseDate
+);
