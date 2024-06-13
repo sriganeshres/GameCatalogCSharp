@@ -10,6 +10,7 @@ var app = builder.Build();
 
 
 app.GetGameEndPoints();
+app.GetGenresEndpoints();
 await app.MigrateDBAsync();
 
 app.Run();
