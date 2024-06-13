@@ -1,9 +1,22 @@
+using Catalog.Frontend.Clients;
 using Catalog.Frontend.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+
+var catalogApiURl = builder.Configuration["CatalogApiURL"] ?? throw new Exception("Backend URL is not set");
+
+builder.Services.AddHttpClient<GamesClient>(client =>
+{
+    client.BaseAddress = new Uri(catalogApiURl);
+});
+
+builder.Services.AddHttpClient<GenresClient>(client =>
+{
+    client.BaseAddress = new Uri(catalogApiURl);
+});
 
 var app = builder.Build();
 
@@ -20,6 +33,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
 app.Run();
